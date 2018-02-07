@@ -31,16 +31,37 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+  let promise = axios.get('https://joes-autos.herokuapp.com/api/vehicles/')
+    promise.then( (response) => {
+      console.log(response);
+      this.setState({
+        vehiclesToDisplay: response.data
+      })
+    })
   }
 
   getPotentialBuyers() {
     // axios (GET)
     // setState with response -> buyersToDisplay
+    let promise = axios.get('https://joes-autos.herokuapp.com/api/buyers/')
+    promise.then( (response) => {
+      console.log(response);
+      this.setState({
+        buyersToDisplay: response.data
+      })
+    })
   }
 
   sellCar( id ) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+    let promise = axios.delete('https://joes-autos.herokuapp.com/api/vehicles/' + id)
+    promise.then( (response) => {
+      console.log(response);
+      this.setState({
+        vehiclesToDisplay: response.data.vehicles
+      })
+    })
   }
 
   filterByMake() {
@@ -48,6 +69,13 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    // let promise = axios.get('https://joes-autos.herokuapp.com/api/vehicles/')
+    // promise.then( (response) => {
+    //   console.log(response);
+    //   this.setState({
+    //     vehiclesToDisplay: response.data.vehicles.filter()
+    //   })
+    // })
   }
 
   filterByColor() {
