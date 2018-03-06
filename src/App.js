@@ -11,6 +11,7 @@ class App extends Component {
     super( props );
 
     this.state = {
+      baseUrl: 'https://joes-autos.herokuapp.com/api',
       vehiclesToDisplay: [],
       buyersToDisplay: []
     };
@@ -55,9 +56,8 @@ class App extends Component {
   sellCar( id ) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
-    let promise = axios.delete('https://joes-autos.herokuapp.com/api/vehicles/' + id)
+    let promise = axios.delete(`${this.state.baseUrl}/vehicles/${id}`)
     promise.then( (response) => {
-      console.log(response);
       this.setState({
         vehiclesToDisplay: response.data.vehicles
       })
@@ -88,6 +88,12 @@ class App extends Component {
   updatePrice( priceChange, id ) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
+   let promise = axios.put(`${this.state.baseUrl}/vehicles/${id}/${priceChange}`)
+   promise.then((response) => {
+     this.setState({
+      vehiclesToDisplay: response.data.vehicles
+     })
+   })
   }
 
   addCar() {
@@ -101,6 +107,12 @@ class App extends Component {
 
     // axios (POST)
     // setState with response -> vehiclesToDisplay
+    let promise = axios.post(this.state.baseUrl + '/vehicles', newCar);
+    promise.then( res => {
+      this.setState({
+        vehiclesToDisplay: res.data.vehicles
+      })
+    })
   }
 
   addBuyer() {
